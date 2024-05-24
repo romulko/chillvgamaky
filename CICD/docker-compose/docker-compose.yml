@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: chillvgamaky/nginx:latest
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+
+  website:
+    image: chillvgamaky/website:latest
+    container_name: website
+    restart: always
+    expose:
+      - "3000"
+
+  database:
+    image: postgres:alpine
+    container_name: database
+    restart: always
+    environment:
+      POSTGRES_DB: chillvgamaky
+      POSTGRES_USER: chillvgamaky
+      POSTGRES_PASSWORD: WATexjWLzwd5XFunNK24Y6P4GBj8
+    ports:
+      - "5432:5432"
+    volumes:
+      - "/opt/app/database_data:/var/lib/postgresql/data"
+
+  server:
+    image: chillvgamaky/server:latest
+    container_name: server
+    restart: always
